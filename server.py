@@ -54,13 +54,13 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                     return self.send_result(ts.reflected_light_intensity)
             if path[2] == "motor":
                 portN = params['portName'][0]
-                if portN = 'A':
+                if portN == 'A':
                     portN = OUTPUT_A
-                if portN = 'B':
+                if portN == 'B':
                     portN = OUTPUT_B
-                if portN = 'C':
+                if portN == 'C':
                     portN = OUTPUT_C
-                if portN = 'D':
+                if portN == 'D':
                     portN = OUTPUT_D
                 type = params['type'][0]
                 if type == 'large':

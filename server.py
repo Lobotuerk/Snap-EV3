@@ -66,25 +66,25 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                 if type == 'large':
                     motor = LargeMotor(portN)
                     if 'seconds' and 'speed' in params:
-                        seconds = int(params['seconds'][0])
-                        speed = int(params['speed'][0])
+                        seconds = float(params['seconds'][0])
+                        speed = float(params['speed'][0])
                         motor.on_for_seconds(SpeedPercent(speed), seconds)
                         return self.send_result("OK")
                     if 'rotations' and 'speed' in params:
-                        rotations = int(params['rotations'][0])
-                        speed = int(params['speed'][0])
+                        rotations = float(params['rotations'][0])
+                        speed = float(params['speed'][0])
                         motor.on_for_rotations(SpeedPercent(speed), rotations)
                         return self.send_result("OK")
                 if type == 'medium':
                     motor = MediumMotor(portN)
                     if 'seconds' and 'speed' in params:
-                        seconds = int(params['seconds'][0])
-                        speed = int(params['speed'][0])
+                        seconds = float(params['seconds'][0])
+                        speed = float(params['speed'][0])
                         motor.on_for_seconds(SpeedPercent(speed), seconds)
                         return self.send_result("OK")
                     if 'rotations' and 'speed' in params:
-                        rotations = int(params['rotations'][0])
-                        speed = int(params['speed'][0])
+                        rotations = float(params['rotations'][0])
+                        speed = float(params['speed'][0])
                         motor.on_for_rotations(SpeedPercent(speed), rotations)
                         return self.send_result("OK")
             return self.send_result("ERROR")

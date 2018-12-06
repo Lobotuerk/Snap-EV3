@@ -6,7 +6,7 @@ import sys
 import urllib
 import time
 
-from ev3dev2.motor import LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, SpeedPercent
+from ev3dev2.motor import LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, SpeedPercent, MoveTank
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
 from ev3dev2.sensor.lego import TouchSensor, ColorSensor, GyroSensor, UltrasonicSensor
 
@@ -60,6 +60,32 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                     #print("ColorSensor")
                     ts = UltrasonicSensor(portN)
                     return self.send_result(ts.distance_centimeters)
+            if path[2] == "tank":
+                port1 = params['port1'][0]
+                if port1 == 'A':
+                    port1 = OUTPUT_A
+                if port1 == 'B':
+                    port1 = OUTPUT_B
+                if port1 == 'C':
+                    port1 = OUTPUT_C
+                if port1 == 'D':
+                    port1 = OUTPUT_D
+                port2 = params['port2'][0]
+                if port2 == 'A':
+                    port2 = OUTPUT_A
+                if port2 == 'B':
+                    port2 = OUTPUT_B
+                if port2 == 'C':
+                    port2 = OUTPUT_C
+                if port2 == 'D':
+                    port2 = OUTPUT_D
+                motor = MoveTank(port1, port2)
+                rotations = float(params['rotations'][0])
+                speed1 = float(params['speed1'][0])
+                speed2 = float(params['speed2'][0])
+                motor.on_for_rotations(speed1, speed2, rotations)
+                return self.send_result("OK")
+
             if path[2] == "motor":
                 portN = params['portName'][0]
                 if portN == 'A':

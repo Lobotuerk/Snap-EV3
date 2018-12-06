@@ -361,4 +361,64 @@ return req;
     </script>
   </block-definition>
 
+  <block-definition s="$robot-1-150-250-150 set tank movement at ports %&apos;port1&apos; and %&apos;port2&apos; for %&apos;rotations&apos; rotations at %&apos;speed1&apos; and %&apos;speed2&apos; speeds percentaje" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%txt">B</input>
+      <input type="%n">0</input>
+      <input type="%n">100</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>tank</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>port1=</l>
+                  <block var="port1"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>port2=</l>
+                  <block var="port2"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>large</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>rotations=</l>
+                  <block var="rotations"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed1=</l>
+                  <block var="speed1"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed2=</l>
+                  <block var="speed2"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
 </blocks>

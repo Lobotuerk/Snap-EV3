@@ -59,7 +59,7 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                 if type == 'ultra':
                     #print("ColorSensor")
                     ts = UltrasonicSensor(portN)
-                    return self.send_result(ts.angle)
+                    return self.send_result(ts.distance_centimeters)
             if path[2] == "motor":
                 portN = params['portName'][0]
                 if portN == 'A':

@@ -8,7 +8,7 @@ import time
 
 from ev3dev2.motor import LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, SpeedPercent
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import TouchSensor, ColorSensor
+from ev3dev2.sensor.lego import TouchSensor, ColorSensor, GyroSensor, UltrasonicSensor
 
 import cgi
 from http.server import HTTPServer, SimpleHTTPRequestHandler
@@ -52,6 +52,14 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                     #print("ColorSensor")
                     ts = ColorSensor(portN)
                     return self.send_result(ts.reflected_light_intensity)
+                if type == 'gyro':
+                    #print("ColorSensor")
+                    ts = GyroSensor(portN)
+                    return self.send_result(ts.angle)
+                if type == 'ultra':
+                    #print("ColorSensor")
+                    ts = UltrasonicSensor(portN)
+                    return self.send_result(ts.angle)
             if path[2] == "motor":
                 portN = params['portName'][0]
                 if portN == 'A':

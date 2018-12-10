@@ -105,6 +105,37 @@ return req;
               <block s="reportJoinWords">
                 <list>
                   <l>type=</l>
+                  <l>light</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 get color sensor at port %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
                   <l>color</l>
                 </list>
               </block>

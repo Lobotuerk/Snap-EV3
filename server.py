@@ -42,9 +42,12 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                 if type == 'touch':
                     ts = TouchSensor(portN)
                     return self.send_result(ts.is_pressed)
-                if type == 'color':
+                if type == 'light':
                     ts = ColorSensor(portN)
                     return self.send_result(ts.reflected_light_intensity)
+                if type == 'color':
+                    ts = ColorSensor(portN)
+                    return self.send_result(ts.color)
                 if type == 'gyro':
                     ts = GyroSensor(portN)
                     return self.send_result(ts.angle)

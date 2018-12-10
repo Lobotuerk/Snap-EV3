@@ -269,6 +269,52 @@ return req;
     </script>
   </block-definition>
 
+  <block-definition s="$robot-1-150-250-150 set large motor at port %&apos;portName&apos; %&apos;run&apos; at %&apos;speed&apos; speed percentaje" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%b">true</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>motor</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>large</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>run=</l>
+                  <block var="run"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed=</l>
+                  <block var="speed"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
   <block-definition s="$robot-1-150-250-150 set medium motor at port %&apos;portName&apos; for %&apos;seconds&apos; seconds at %&apos;speed&apos; speed percentaje" type="command" category="motion">
     <header>
     </header>

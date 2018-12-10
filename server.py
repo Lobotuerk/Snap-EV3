@@ -103,7 +103,7 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                         return self.send_result("OK")
                     if 'run' in params and 'speed' in params:
                         speed = float(params['speed'][0])
-                        if params[run][0] == 'true':
+                        if params['run'][0] == 'true':
                             motor.on(SpeedPercent(speed))
                         else:
                             motor.off()

@@ -28,12 +28,8 @@ class Ev3Handler(SimpleHTTPRequestHandler):
             url = urllib.parse.urlparse(self.path)
             path = url.path.split("/")
             params = urllib.parse.parse_qs(url.query)
-            #print(params)
-            #print(params['portName'])
-            #print(params['type'])
             if path[2] == "sensor":
                 portN = params['portName'][0]
-                #print("PORTN = " + str(portN))
                 if portN == '1':
                     portN = INPUT_1
                 elif portN == '2':
@@ -43,21 +39,19 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                 elif portN == '4':
                     portN = INPUT_4
                 type = params['type'][0]
-                #print("TYPE = " + str(type))
                 if type == 'touch':
-                    #print("TouchSensor")
                     ts = TouchSensor(portN)
                     return self.send_result(ts.is_pressed)
-                if type == 'color':
-                    #print("ColorSensor")
+                if type == 'light':
                     ts = ColorSensor(portN)
                     return self.send_result(ts.reflected_light_intensity)
+                if type == 'color':
+                    ts = ColorSensor(portN)
+                    return self.send_result(ts.color)
                 if type == 'gyro':
-                    #print("ColorSensor")
                     ts = GyroSensor(portN)
                     return self.send_result(ts.angle)
                 if type == 'ultra':
-                    #print("ColorSensor")
                     ts = UltrasonicSensor(portN)
                     return self.send_result(ts.distance_centimeters)
             if path[2] == "tank":
@@ -97,26 +91,34 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                 if portN == 'D':
                     portN = OUTPUT_D
                 type = params['type'][0]
+                print(params)
                 if type == 'large':
                     motor = LargeMotor(portN)
-                    if 'seconds' and 'speed' in params:
+                    if 'seconds' in params and 'speed' in params:
                         seconds = float(params['seconds'][0])
                         speed = float(params['speed'][0])
                         motor.on_for_seconds(SpeedPercent(speed), seconds)
                         return self.send_result("OK")
-                    if 'rotations' and 'speed' in params:
+                    if 'rotations' in params and 'speed' in params:
                         rotations = float(params['rotations'][0])
                         speed = float(params['speed'][0])
                         motor.on_for_rotations(SpeedPercent(speed), rotations)
                         return self.send_result("OK")
+                    if 'run' in params and 'speed' in params:
+                        speed = float(params['speed'][0])
+                        if params['run'][0] == 'true':
+                            motor.on(SpeedPercent(speed))
+                        else:
+                            motor.off()
+                        return self.send_result("OK")
                 if type == 'medium':
                     motor = MediumMotor(portN)
-                    if 'seconds' and 'speed' in params:
+                    if 'seconds' in params and 'speed' in params:
                         seconds = float(params['seconds'][0])
                         speed = float(params['speed'][0])
                         motor.on_for_seconds(SpeedPercent(speed), seconds)
                         return self.send_result("OK")
-                    if 'rotations' and 'speed' in params:
+                    if 'rotations' in params and 'speed' in params:
                         rotations = float(params['rotations'][0])
                         speed = float(params['speed'][0])
                         motor.on_for_rotations(SpeedPercent(speed), rotations)
@@ -124,7 +126,6 @@ class Ev3Handler(SimpleHTTPRequestHandler):
             return self.send_result("ERROR")
 
         if self.path == "/":
-            # Serve the main Snap! page instead of the directory listing
             self.path = "snap.html"
         SimpleHTTPRequestHandler.do_GET(self)
 
@@ -145,7 +146,6 @@ class Ev3Handler(SimpleHTTPRequestHandler):
         self.send_header("Cache-control", "no cache")
         self.end_headers()
         self.wfile.write(value.encode("utf-8"))
-        #self.wfile.write(b"\n")
 
 
     def error(self, code):

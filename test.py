@@ -183,9 +183,6 @@ class Ev3Handler(SimpleHTTPRequestHandler):
 
 
     def send_result(self, value):
-        d = Display()
-        d.text_grid("Robotica \neducativa \n    UTN FRT", font='luBS24')
-        d.update()
         value = str(value)
         self.send_response(200)
         self.send_header("Cache-control", "no cache")

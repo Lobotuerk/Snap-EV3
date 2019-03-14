@@ -33,6 +33,21 @@ class Ev3Handler(SimpleHTTPRequestHandler):
             path = url.path.split("/")
             params = urllib.parse.parse_qs(url.query)
             if path[2] == "sensor":
+                if type == 'bt_left':
+                    ts = Button()
+                    return self.send_result(ts.left)
+                if type == 'bt_right':
+                    ts = Button()
+                    return self.send_result(ts.right)
+                if type == 'bt_up':
+                    ts = Button()
+                    return self.send_result(ts.up)
+                if type == 'bt_down':
+                    ts = Button()
+                    return self.send_result(ts.down)
+                if type == 'bt_enter':
+                    ts = Button()
+                    return self.send_result(ts.enter)
                 portN = params['portName'][0]
                 if portN == '1':
                     portN = INPUT_1
@@ -58,21 +73,6 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                 if type == 'gyro':
                     ts = GyroSensor(portN)
                     return self.send_result(ts.angle)
-                if type == 'bt_left':
-                    ts = Button()
-                    return self.send_result(ts.left)
-                if type == 'bt_right':
-                    ts = Button()
-                    return self.send_result(ts.right)
-                if type == 'bt_up':
-                    ts = Button()
-                    return self.send_result(ts.up)
-                if type == 'bt_down':
-                    ts = Button()
-                    return self.send_result(ts.down)
-                if type == 'bt_enter':
-                    ts = Button()
-                    return self.send_result(ts.enter)
                 if type == 'ultra':
                     ts = UltrasonicSensor(portN)
                     return self.send_result(ts.distance_centimeters)
@@ -183,6 +183,9 @@ class Ev3Handler(SimpleHTTPRequestHandler):
 
 
     def send_result(self, value):
+        d = Display()
+        d.text_grid("Robotica \neducativa \n    UTN FRT", font='luBS24')
+        d.update()
         value = str(value)
         self.send_response(200)
         self.send_header("Cache-control", "no cache")
@@ -205,10 +208,8 @@ if __name__ == "__main__":
     try:
         #print("Server Running")
         d = Display()
-        d.clear()
-        #d.text_grid("Robotica educativa \n UTN FRT", font=fonts.load('charBI24'))
+        d.text_grid("Robotica \neducativa \n    UTN FRT", font='luBS24')
         d.update()
-        print(fonts.available())
         server.serve_forever()
     except KeyboardInterrupt:
         pass

@@ -364,7 +364,7 @@ return req;
     </script>
   </block-definition>
 
-  <block-definition s="$robot-1-150-250-150 Encender led izquierdo con rojo al %'red' % y verde al %'green' %" type="reporter" category="sensing">
+  <block-definition s="$robot-1-150-250-150 Encender led izquierdo con rojo al %'red' % y verde al %'green' %" type="command" category="control">
     <header/>
     <code/>
     <inputs>
@@ -402,7 +402,7 @@ return req;
     </script>
   </block-definition>
 
-  <block-definition s="$robot-1-150-250-150 Encender led derecho con rojo al %'red' % y verde al %'green' %" type="reporter" category="sensing">
+  <block-definition s="$robot-1-150-250-150 Encender led derecho con rojo al %'red' % y verde al %'green' %" type="command" category="control">
     <header/>
     <code/>
     <inputs>

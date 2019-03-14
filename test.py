@@ -33,6 +33,7 @@ class Ev3Handler(SimpleHTTPRequestHandler):
             path = url.path.split("/")
             params = urllib.parse.parse_qs(url.query)
             if path[2] == "sensor":
+                type = params['type'][0]
                 if type == 'bt_left':
                     ts = Button()
                     return self.send_result(ts.left)
@@ -57,7 +58,6 @@ class Ev3Handler(SimpleHTTPRequestHandler):
                     portN = INPUT_3
                 elif portN == '4':
                     portN = INPUT_4
-                type = params['type'][0]
                 if type == 'touch':
                     ts = TouchSensor(portN)
                     return self.send_result(ts.is_pressed)
@@ -184,6 +184,9 @@ class Ev3Handler(SimpleHTTPRequestHandler):
 
     def send_result(self, value):
         value = str(value)
+        d = Display()
+        d.text_grid("Robotica \neducativa \n    UTN FRT", font='luBS24')
+        d.update()
         self.send_response(200)
         self.send_header("Cache-control", "no cache")
         self.end_headers()

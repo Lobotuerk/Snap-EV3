@@ -206,7 +206,7 @@ if __name__ == "__main__":
         #print("Server Running")
         d = Display()
         d.clear()
-        d.text_grid("Robotica educativa \n UTN FRT", font=fonts.load('luBS24'))
+        d.text_grid("Robotica educativa \n UTN FRT", font=fonts.load('charBI24'))
         d.update()
         server.serve_forever()
     except KeyboardInterrupt:

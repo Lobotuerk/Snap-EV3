@@ -1,0 +1,733 @@
+<blocks app="Snap! 4.0, http://snap.berkeley.edu" version="1">
+
+  <block-definition s="ev3 request %'command' %'params'" type="reporter" category="other">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+      <input type="%mult%txt"/>
+    </inputs>
+    <script>
+      <block s="doDeclareVariables">
+        <list>
+          <l>getEv3Request</l>
+        </list>
+      </block>
+      <block s="doSetVar">
+        <l>getEv3Request</l>
+        <block s="reportJSFunction">
+          <list>
+            <l>cmd</l>
+            <l>paramObject</l>
+          </list>
+          <l>
+var addr = window.location.href.substr(7);
+var req = addr + 'ev3/' + cmd;
+var params = paramObject.contents;
+if (params.length &gt; 0) {
+  req += '?';
+  for (var i = 0, len = params.length; i &lt; len; i++) {
+    req += params[i];
+    if (i &lt; len - 1) {
+      req += '&amp;';
+    }
+  }
+}
+return req;
+          </l>
+        </block>
+      </block>
+      <block s="doReport">
+        <block s="reportJoinWords">
+          <list>
+            <block s="evaluate">
+              <block var="getEv3Request"/>
+              <list>
+                <block var="command"/>
+                <block var="params"/>
+              </list>
+            </block>
+          </list>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Boton izquierdo presionado?" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>bt_left</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Boton derecho presionado?" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>bt_right</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Boton arriba presionado?" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>bt_up</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Boton abajo presionado?" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>bt_down</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Boton central presionado?" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>bt_enter</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Valor del sensor de luz ambiente en el puerto %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>ambient</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Valor del sensor de tacto en el puerto %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>touch</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Valor del sensor de intensidad de luz reflejada en el puerto %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>light</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Valor del sensor de color en el puerto %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>color</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Valor del sensor de giroscopio en el puerto %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>gyro</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Valor del sensor ultrasonico en el puerto %'portName'" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>sensor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>ultra</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Encender led izquierdo con rojo al %'red' % y verde al %'green' %" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>led</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>red=</l>
+                  <block var="red"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>green=</l>
+                  <block var="green"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>left</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Encender led derecho con rojo al %'red' % y verde al %'green' %" type="reporter" category="sensing">
+    <header/>
+    <code/>
+    <inputs>
+      <input type="%txt"/>
+      <input type="%txt"/>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>led</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>red=</l>
+                  <block var="red"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>green=</l>
+                  <block var="green"/>
+                </list>
+              </block>
+              <block s="reportJoinWords">
+                <list>
+                  <l>type=</l>
+                  <l>right</l>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Mover el motor grande del puerto %&apos;portName&apos; durante %&apos;seconds&apos; segundos al %&apos;speed&apos; % de velocidad" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%n">0</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>motor</l>
+            <list>
+              <block s="reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>large</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>seconds=</l>
+                  <block var="seconds"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed=</l>
+                  <block var="speed"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Mover el motor grande del puerto %&apos;portName&apos; por %&apos;rotations&apos; vueltas a %&apos;speed&apos; % de velocidad" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%n">0</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>motor</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>large</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>rotations=</l>
+                  <block var="rotations"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed=</l>
+                  <block var="speed"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Poner el motor grande del puerto %&apos;portName&apos; en modo %&apos;run&apos; al %&apos;speed&apos; % de velocidad" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%b">true</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>motor</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>large</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>run=</l>
+                  <block var="run"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed=</l>
+                  <block var="speed"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Mover motor mediano del puerto %&apos;portName&apos; por %&apos;seconds&apos; segundos a %&apos;speed&apos; % de velocidad" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%n">0</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>motor</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>medium</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>seconds=</l>
+                  <block var="seconds"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed=</l>
+                  <block var="speed"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Mover motor mediano del puerto %&apos;portName&apos; por %&apos;rotations&apos; vueltas a %&apos;speed&apos; % de velocidad" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%n">0</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>motor</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>portName=</l>
+                  <block var="portName"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>medium</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>rotations=</l>
+                  <block var="rotations"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed=</l>
+                  <block var="speed"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+  <block-definition s="$robot-1-150-250-150 Movimiento conjunto de los motores grandes en los puertos %&apos;port1&apos; y %&apos;port2&apos; por %&apos;rotations&apos; vueltas a %&apos;speed1&apos; y %&apos;speed2&apos; % de velocidad respectivamente" type="command" category="motion">
+    <header>
+    </header>
+    <code>
+    </code>
+    <inputs>
+      <input type="%txt">A</input>
+      <input type="%txt">B</input>
+      <input type="%n">0</input>
+      <input type="%n">100</input>
+      <input type="%n">100</input>
+    </inputs>
+    <script>
+      <block s="doReport">
+        <block s="reportURL">
+          <custom-block s="ev3 request %txt %mult%txt">
+            <l>tank</l>
+            <list>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>port1=</l>
+                  <block var="port1"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>port2=</l>
+                  <block var="port2"/>
+                </list>
+              </block>
+                <block s = "reportJoinWords">
+                  <list><l>type=</l>
+                  <l>large</l>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>rotations=</l>
+                  <block var="rotations"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed1=</l>
+                  <block var="speed1"/>
+                </list>
+              </block>
+              <block s = "reportJoinWords">
+                <list>
+                  <l>speed2=</l>
+                  <block var="speed2"/>
+                </list>
+              </block>
+            </list>
+          </custom-block>
+        </block>
+      </block>
+    </script>
+  </block-definition>
+
+</blocks>

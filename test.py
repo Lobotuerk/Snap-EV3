@@ -210,6 +210,9 @@ if __name__ == "__main__":
         d = Display()
         d.text_grid("Robotica \neducativa \n    UTN FRT", font='luBS24')
         d.update()
+        led = Leds()
+        led.set_color('LEFT',(0,0))
+        led.set_color('RIGHT',(0,0))
         server.serve_forever()
     except KeyboardInterrupt:
         pass
